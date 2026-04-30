@@ -5,110 +5,112 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Batak Essence - Cafe & Resto</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
 <div id="app"></div>
-
 <script src="script.js"></script>
 
 <!-- SPLASH -->
 <div id="splash">
-<img src="BatakEssence1.png">
-<h1 id="welcomeText">Batak Essence</h1>
-<p>Cafe & Resto</p>
-
-<div class="meja" id="kodePelanggan">No Pelanggan : -</div>
-
-<div class="opsi">
-<div class="opsi-box" onclick="pilihLayanan(this,'Dine In')">🍽️ Dine In</div>
-<div class="opsi-box" onclick="pilihLayanan(this,'Take Away')">🥡 Take Away</div>
-<div class="opsi-box" onclick="pilihLayanan(this,'Delivery')">🛵 Delivery</div>
-</div>
-
-<div class="login-box">
-<input type="text" id="userName" placeholder="Pilih layanan dulu..." readonly onclick="cekLayanan()">
-<button onclick="startApp()">Masuk ke Batak Essence</button>
-</div>
+  <img src="BatakEssence1.png">
+  <h1 id="welcomeText">Batak Essence</h1>
+  <p>Cafe & Resto</p>
+  <div class="meja" id="kodePelanggan">No Pelanggan : -</div>
+  <div class="opsi">
+    <div class="opsi-box" onclick="pilihLayanan(this,'Dine In')">🍽️ Dine In</div>
+    <div class="opsi-box" onclick="pilihLayanan(this,'Take Away')">🥡 Take Away</div>
+    <div class="opsi-box" onclick="pilihLayanan(this,'Delivery')">🛵 Delivery</div>
+  </div>
+  <div class="login-box">
+    <input type="text" id="userName" placeholder="Pilih layanan dulu..." readonly onclick="cekLayanan()">
+    <button onclick="startApp()">Masuk ke Batak Essence</button>
+  </div>
 </div>
 
 <!-- HEADER -->
 <header>
-<img src="BatakEssence1.png" class="logo">
-
-<div class="brand">
-<h3>Batak Essence</h3>
-<p>Cafe & Resto</p>
-</div>
-
-<div class="search-wrap">
-<input class="search" id="searchInput" placeholder="Cari menu..." onkeyup="searchProduk()">
-<div class="icon">🔎</div>
-</div>
-
-<div class="cart" onclick="openPage('cart')">
-🛒 <span class="badge" id="count">0</span>
-</div>
+  <img src="BatakEssence1.png" class="logo">
+  <div class="brand">
+    <h3>Batak Essence</h3>
+    <p>Cafe & Resto</p>
+  </div>
+  <div class="search-wrap">
+    <input class="search" id="searchInput" placeholder="Cari menu..." onkeyup="searchProduk()">
+    <div class="icon">🔎</div>
+  </div>
+  <div class="cart" onclick="openPage('cart')">
+    🛒 <span class="badge" id="count">0</span>
+  </div>
 </header>
 
 <!-- HOME -->
 <div id="home" class="page">
-
-<div class="hero">
-<h2 id="helloUser">Horas!</h2>
-<p class="gold-text">Nikmati cita rasa khas Batak yang autentik hanya di sini.</p>
-</div>
-
-<div class="layanan-info">
-  
-  <div class="layanan-left">
-    Layanan Dipilih : <span id="layananShow">-</span>
+  <div class="hero">
+    <h2 id="helloUser">Horas!</h2>
+    <p class="gold-text">Nikmati cita rasa khas Batak yang autentik hanya di sini.</p>
   </div>
+  <div class="layanan-info">
+    <div class="layanan-left">
+      Layanan Dipilih : <span id="layananShow">-</span>
+    </div>
+    <button class="ubah-btn" onclick="ubahLayanan()">
+      Ubah
+    </button>
+  </div>
+  <div class="cat-wrap">
+    <div class="cat" onclick="filterCat('all',this)">🍽️ Semua</div>
+    <div class="cat" onclick="filterCat('makanan',this)">🍖 Makanan</div>
+    <div class="cat" onclick="filterCat('minuman',this)">🥤 Minuman</div>
+    <div class="cat" onclick="filterCat('snack',this)">🍰 Snack</div>
+  </div>
+  // Product-1
+  <div class="grid">
+    <div class="card" data-cat="makanan" onclick="openProduct(
+      'Babi Panggang',
+      45000,
+      'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
+      'https://picsum.photos/300?10'
+    )">
+      <img src="https://picsum.photos/300?1">
+      <div class="info">
+        <div class="name">Babi Panggang</div>
+        <div class="price">45K</div>
+      </div>
+    </div>
+    <div class="card" data-cat="makanan" onclick="openProduct(
+      'Babi Panggang',
+      45000,
+      'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
+      'https://picsum.photos/300?10'
+    )">
+      <img src="https://picsum.photos/300?1">
+      <div class="info">
+        <div class="name">Babi Panggang</div>
+        <div class="price">45K</div>
+      </div>
+    </div>
 
-  <button class="ubah-btn" onclick="ubahLayanan()">
-    Ubah
-  </button>
-
-</div>
-
-<div class="cat-wrap">
-<div class="cat" onclick="filterCat('all',this)">🍽️ Semua</div>
-<div class="cat" onclick="filterCat('makanan',this)">🍖 Makanan</div>
-<div class="cat" onclick="filterCat('minuman',this)">🥤 Minuman</div>
-<div class="cat" onclick="filterCat('snack',this)">🍰 Snack</div>
-
-</div>
-
-<div class="grid">
-
-<div class="card" data-cat="makanan" onclick="openProduct(
-  'Babi Panggang',
-  45000,
-  'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
-  'https://picsum.photos/300?10'
-)">
-<img src="https://picsum.photos/300?1">
-<div class="info">
-<div class="name">Babi Panggang</div>
-<div class="price">45K</div>
-</div>
-</div>
 
 
-<div class="card" data-cat="makanan" onclick="openProduct(
-  'Mie Gomak',
-  32000,
-  'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
-  'https://picsum.photos/300?2'
-)">
-<img src="https://picsum.photos/300?2">
-<div class="info">
-<div class="name">Mie Gomak</div>
-<div class="price">32K</div>
-</div>
-</div>
+
+
+
+
+    
+  
+  <div class="card" data-cat="makanan" onclick="openProduct(
+    'Mie Gomak',
+    32000,
+    'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
+    'https://picsum.photos/300?2'
+  )">
+  <img src="https://picsum.photos/300?2">
+  <div class="info">
+  <div class="name">Mie Gomak</div>
+  <div class="price">32K</div>
+  </div>
+  </div>
 
 
 <div class="card" data-cat="makanan" onclick="openProduct(
