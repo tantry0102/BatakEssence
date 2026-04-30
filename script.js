@@ -69,7 +69,7 @@ function filterCat(cat, el){
    item.style.display="block";
   }else{
    item.style.display = (itemCat === cat) ? "block" : "none";
-   }
+  }
  });
 }
 
@@ -158,7 +158,7 @@ function openPage(page){
    ongkir = hitungOngkir(subtotal);
   }
  document.getElementById("cartOngkir").innerText =
- "Rp " + ongkir.toLocaleString();
+  "Rp " + ongkir.toLocaleString();
  }
 }
 
@@ -171,115 +171,85 @@ function hitungOngkir(total){
 function renderCart(){
  let wrap = document.getElementById("cartItems");
  if(cart.length === 0){
- wrap.innerHTML = `<div class="empty-cart">Keranjang masih kosong</div>`;
- document.getElementById("cartTotal").innerText = "Rp 0";
- document.getElementById("cartOngkir").innerText = "Rp 0";
- return;
-}
-
-let html = "";
-let totalHarga = 0;
-
-cart.forEach((item,index)=>{
- let subtotal = item.price * item.qty;
- totalHarga += subtotal;
- html += `
- <div class="cart-item">
- <img src="${item.img}">
- <div class="cart-info">
- <h4>${item.name}</h4>
- <p>Rp ${item.price.toLocaleString()} / pcs</p>
- </div>
-
-<div class="qty-box">
-
-  <button class="qty-btn" onclick="kurangQty(${index})">-</button>
-
-  <b>${item.qty}</b>
-
-  <button class="qty-btn" onclick="tambahQty(${index})">+</button>
-
-  <b class="subtotal">
-    Rp ${subtotal.toLocaleString()}
-  </b>
-
-</div>
-
-</div>
-
-</div>
-`;
-});
-
-wrap.innerHTML = html;
-
-let ongkir = 0;
-if(layanan === "Delivery"){
-ongkir = hitungOngkir(totalHarga);
-}
-
-document.getElementById("cartTotal").innerText =
-"Rp " + (totalHarga + ongkir).toLocaleString();
-
-document.getElementById("cartOngkir").innerText =
-"Rp " + ongkir.toLocaleString();
+  wrap.innerHTML = `<div class="empty-cart">Keranjang masih kosong</div>`;
+  document.getElementById("cartTotal").innerText = "Rp 0";
+  document.getElementById("cartOngkir").innerText = "Rp 0";
+  return;
+ }
+ let html = "";
+ let totalHarga = 0;
+ cart.forEach((item,index)=>{
+  let subtotal = item.price * item.qty;
+  totalHarga += subtotal;
+  html += `
+   <div class="cart-item">
+    <img src="${item.img}">
+    <div class="cart-info">
+     <h4>${item.name}</h4>
+     <p>Rp ${item.price.toLocaleString()} / pcs</p>
+    </div>
+    <div class="qty-box">
+     <button class="qty-btn" onclick="kurangQty(${index})">-</button>
+     <b>${item.qty}</b>
+     <button class="qty-btn" onclick="tambahQty(${index})">+</button>
+     <b class="subtotal">Rp ${subtotal.toLocaleString()}</b>
+    </div>
+   </div>
+  `;
+ });
+ wrap.innerHTML = html;
+ let ongkir = 0;
+ if(layanan === "Delivery"){
+  ongkir = hitungOngkir(totalHarga);
+ }
+ document.getElementById("cartTotal").innerText =
+ "Rp " + (totalHarga + ongkir).toLocaleString();
+ document.getElementById("cartOngkir").innerText =
+ "Rp " + ongkir.toLocaleString();
 }
 
 function tambahQty(index){
-cart[index].qty++;
-count++;
-document.getElementById("count").innerText = count;
-renderCart();
+ cart[index].qty++;
+ count++;
+ document.getElementById("count").innerText = count;
+ renderCart();
 }
 
 function kurangQty(index){
-cart[index].qty--;
-count--;
-
-if(cart[index].qty <= 0){
-cart.splice(index,1);
-}
-
-if(count < 0){
-count = 0;
-}
-
-document.getElementById("count").innerText = count;
-renderCart();
+ cart[index].qty--;
+ count--;
+ if(cart[index].qty <= 0){
+  cart.splice(index,1);
+ }
+ if(count < 0){
+  count = 0;
+ }
+ document.getElementById("count").innerText = count;
+ renderCart();
 }
 
 function hapusItem(index){
-count -= cart[index].qty;
-
-if(count < 0){
-count = 0;
+ count -= cart[index].qty;
+ if(count < 0){
+  count = 0;
+ }
+ cart.splice(index,1);
+ document.getElementById("count").innerText = count;
+ renderCart();
 }
-
-cart.splice(index,1);
-
-document.getElementById("count").innerText = count;
-renderCart();
-}
-
 
 // CEKOUT CHART
 function checkoutCart(){
-
-if(cart.length === 0){
-alert("Keranjang masih kosong");
-document.getElementById("cartTotal").innerText = "Rp 0";
-document.getElementById("cartOngkir").innerText = "Rp 0";
-return;
-}
-
-alert("Pesanan berhasil diproses");
-
-cart = [];
-count = 0;
-
-document.getElementById("count").innerText = "0";
-
-renderCart();
-
-openPage("home");
+ if(cart.length === 0){
+  alert("Keranjang masih kosong");
+  document.getElementById("cartTotal").innerText = "Rp 0";
+  document.getElementById("cartOngkir").innerText = "Rp 0";
+  return;
+ }
+ alert("Pesanan berhasil diproses");
+ cart = [];
+ count = 0;
+ document.getElementById("count").innerText = "0";
+ renderCart();
+ openPage("home");
 }
