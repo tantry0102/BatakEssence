@@ -64,7 +64,7 @@
     <div class="cat" onclick="filterCat('minuman',this)">🥤 Minuman</div>
     <div class="cat" onclick="filterCat('snack',this)">🍰 Snack</div>
   </div>
-  // Product-1
+  <!-- PRODUCT LIST -->
   <div class="grid">
     <div class="card" data-cat="makanan" onclick="openProduct(
       'Babi Panggang',
@@ -77,68 +77,44 @@
         <div class="name">Babi Panggang</div>
         <div class="price">45K</div>
       </div>
-    </div>
+    </div>    
     <div class="card" data-cat="makanan" onclick="openProduct(
-      'Babi Panggang',
-      45000,
-      'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
-      'https://picsum.photos/300?10'
+      'Mie Gomak',
+      32000,
+      'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
+      'https://picsum.photos/300?2'
     )">
-      <img src="https://picsum.photos/300?1">
+      <img src="https://picsum.photos/300?2">
       <div class="info">
-        <div class="name">Babi Panggang</div>
-        <div class="price">45K</div>
+        <div class="name">Mie Gomak</div>
+        <div class="price">32K</div>
       </div>
     </div>
-
-
-
-
-
-
-
-    
-  
-  <div class="card" data-cat="makanan" onclick="openProduct(
-    'Mie Gomak',
-    32000,
-    'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
-    'https://picsum.photos/300?2'
-  )">
-  <img src="https://picsum.photos/300?2">
-  <div class="info">
-  <div class="name">Mie Gomak</div>
-  <div class="price">32K</div>
+    <div class="card" data-cat="makanan" onclick="openProduct(
+      'Saksang',
+      52000,
+      'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
+      'https://picsum.photos/300?3'
+    )">
+      <img src="https://picsum.photos/300?3">
+      <div class="info">
+        <div class="name">Saksang</div>
+        <div class="price">52K</div>
+      </div>
+    </div>
+    <div class="card" data-cat="minuman" onclick="openProduct(
+      'Kopi Sidikalang',
+      22000,
+      'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
+      'https://picsum.photos/300?4'
+    )">
+      <img src="https://picsum.photos/300?4">
+      <div class="info">
+        <div class="name">Kopi Sidikalang</div>
+        <div class="price">22K</div>
+      </div>
+    </div>
   </div>
-  </div>
-
-
-<div class="card" data-cat="makanan" onclick="openProduct(
-  'Saksang',
-  52000,
-  'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
-  'https://picsum.photos/300?3'
-)">
-<img src="https://picsum.photos/300?3">
-<div class="info">
-<div class="name">Saksang</div>
-<div class="price">52K</div>
-</div>
-</div>
-
-<div class="card" data-cat="minuman" onclick="openProduct(
-  'Kopi Sidikalang',
-  22000,
-  'Kopi Sidikalang dengan cita rasa autentik.',
-  'https://picsum.photos/300?3'
-)">
-<img src="https://picsum.photos/300?4">
-<div class="info">
-<div class="name">Kopi Sidikalang</div>
-<div class="price">22K</div>
-</div>
-</div>
-</div>
 </div>
 
 <nav>
@@ -146,17 +122,14 @@
     <span>🏠</span>
     <p>Home</p>
   </div>
-
   <div class="nav-item" onclick="setNav(this);openPage('cart')">
     <span>🛒</span>
     <p>Cart</p>
   </div>
-
   <div class="nav-item">
     <span>💳</span>
     <p>Bayar</p>
   </div>
-
   <div class="nav-item">
     <span>👤</span>
     <p>Profil</p>
@@ -166,92 +139,74 @@
 <!-- PRODUCT MODAL -->
 <div id="productModal" class="modal">
   <div class="modal-content">
-
     <span class="close" onclick="closeModal()">×</span>
-
     <img id="modalMainImg" class="modal-main">
-
     <div class="modal-thumb">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
     </div>
-
     <h2 id="modalTitle"></h2>
     <p id="modalDesc"></p>
     <h3 id="modalPrice"></h3>
-
     <button onclick="addToCart(
-  document.getElementById('modalTitle').innerText,
-  parseInt(document.getElementById('modalPrice').innerText.replace(/\D/g,'')),
-  document.getElementById('modalMainImg').src
-)">
-  + Tambah Keranjang
-</button>
-
+      document.getElementById('modalTitle').innerText,
+      parseInt(document.getElementById('modalPrice').innerText.replace(/\D/g,'')),
+      document.getElementById('modalMainImg').src
+    )">
+      + Tambah Keranjang
+    </button>
   </div>
 </div>
 
 <!-- CART PAGE -->
 <div id="cart" class="page">
-
   <div class="hero">
     <h2>Keranjang Belanja</h2>
     <p class="gold-text">Pesanan yang sudah kamu pilih</p>
   </div>
-
   <div class="cart-box" id="cartItems">
     <div class="empty-cart">Keranjang masih kosong</div>
   </div>
-
-<div class="cart-total" style="flex-direction:column;align-items:stretch;gap:10px;">
-
-  <!-- layanan -->
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:14px;
-    border-bottom:1px solid #e5e7eb;
-    padding-bottom:8px;
-  ">
-    <span>Layanan Dipilih</span>
-    <b id="cartLayanan">-</b>
+  <div class="cart-total" style="flex-direction:column;align-items:stretch;gap:10px;">
+    <!-- layanan -->
+    <div style="
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     font-size:14px;
+     border-bottom:1px solid #e5e7eb;
+     padding-bottom:8px;
+    ">
+     <span>Layanan Dipilih</span>
+     <b id="cartLayanan">-</b>
+    </div>
+    <!-- ongkir -->
+    <div style="
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     font-size:14px;
+    ">
+     <span>Ongkir</span>
+     <b id="cartOngkir">Rp 0</b>
+    </div>
+    <!-- total -->
+    <div style="
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     font-size:16px;
+     border-top:1px solid #e5e7eb;
+     padding-top:8px;
+    ">
+     <span>Total</span>
+     <b id="cartTotal">Rp 0</b>
+    </div>
   </div>
-
-  <!-- ongkir -->
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:14px;
-  ">
-    <span>Ongkir</span>
-    <b id="cartOngkir">Rp 0</b>
-  </div>
-
-  <!-- total -->
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:16px;
-    border-top:1px solid #e5e7eb;
-    padding-top:8px;
-  ">
-    <span>Total</span>
-    <b id="cartTotal">Rp 0</b>
-  </div>
-
-</div>
-
-
   <button onclick="checkoutCart()">Checkout</button>
-
 </div>
-
-
 
 </body>
 </html>
