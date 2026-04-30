@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Batak Essence - Cafe & Resto</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script src="script.js"></script>
+
+<!-- SPLASH -->
+<div id="splash">
+<img src="BatakEssence1.png">
+<h1 id="welcomeText">Batak Essence</h1>
+<p>Cafe & Resto</p>
+
+<div class="meja" id="kodePelanggan">No Pelanggan : -</div>
+
+<div class="opsi">
+<div class="opsi-box" onclick="pilihLayanan(this,'Dine In')">🍽️ Dine In</div>
+<div class="opsi-box" onclick="pilihLayanan(this,'Take Away')">🥡 Take Away</div>
+<div class="opsi-box" onclick="pilihLayanan(this,'Delivery')">🛵 Delivery</div>
+</div>
+
+<div class="login-box">
+<input type="text" id="userName" placeholder="Pilih layanan dulu..." readonly onclick="cekLayanan()">
+<button onclick="startApp()">Masuk ke Batak Essence</button>
+</div>
+</div>
+
+<!-- HEADER -->
+<header>
+<img src="BatakEssence1.png" class="logo">
+
+<div class="brand">
+<h3>Batak Essence</h3>
+<p>Cafe & Resto</p>
+</div>
+
+<div class="search-wrap">
+<input class="search" id="searchInput" placeholder="Cari menu..." onkeyup="searchProduk()">
+<div class="icon">🔎</div>
+</div>
+
+<div class="cart" onclick="openPage('cart')">
+🛒 <span class="badge" id="count">0</span>
+</div>
+</header>
+
+<!-- HOME -->
+<div id="home" class="page">
+
+<div class="hero">
+<h2 id="helloUser">Horas!</h2>
+<p class="gold-text">Nikmati cita rasa khas Batak yang autentik hanya di sini.</p>
+</div>
+
+<div class="layanan-info">
+  
+  <div class="layanan-left">
+    Layanan Dipilih : <span id="layananShow">-</span>
+  </div>
+
+  <button class="ubah-btn" onclick="ubahLayanan()">
+    Ubah
+  </button>
+
+</div>
+
+<div class="cat-wrap">
+<div class="cat" onclick="filterCat('all',this)">🍽️ Semua</div>
+<div class="cat" onclick="filterCat('makanan',this)">🍖 Makanan</div>
+<div class="cat" onclick="filterCat('minuman',this)">🥤 Minuman</div>
+<div class="cat" onclick="filterCat('snack',this)">🍰 Snack</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Babi Panggang',
+  45000,
+  'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
+  'https://picsum.photos/300?10'
+)">
+<img src="https://picsum.photos/300?1">
+<div class="info">
+<div class="name">Babi Panggang</div>
+<div class="price">45K</div>
+</div>
+</div>
+
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Mie Gomak',
+  32000,
+  'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
+  'https://picsum.photos/300?2'
+)">
+<img src="https://picsum.photos/300?2">
+<div class="info">
+<div class="name">Mie Gomak</div>
+<div class="price">32K</div>
+</div>
+</div>
+
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Saksang',
+  52000,
+  'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
+  'https://picsum.photos/300?3'
+)">
+<img src="https://picsum.photos/300?3">
+<div class="info">
+<div class="name">Saksang</div>
+<div class="price">52K</div>
+</div>
+</div>
+
+<div class="card" data-cat="minuman" onclick="openProduct(
+  'Kopi Sidikalang',
+  22000,
+  'Kopi Sidikalang dengan cita rasa autentik.',
+  'https://picsum.photos/300?3'
+)">
+<img src="https://picsum.photos/300?4">
+<div class="info">
+<div class="name">Kopi Sidikalang</div>
+<div class="price">22K</div>
+</div>
+</div>
+</div>
+</div>
+
+<nav>
+  <div class="nav-item active" onclick="setNav(this);openPage('home')">
+    <span>🏠</span>
+    <p>Home</p>
+  </div>
+
+  <div class="nav-item" onclick="setNav(this);openPage('cart')">
+    <span>🛒</span>
+    <p>Cart</p>
+  </div>
+
+  <div class="nav-item">
+    <span>💳</span>
+    <p>Bayar</p>
+  </div>
+
+  <div class="nav-item">
+    <span>👤</span>
+    <p>Profil</p>
+  </div>
+</nav>
+
+<!-- PRODUCT MODAL -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close" onclick="closeModal()">×</span>
+
+    <img id="modalMainImg" class="modal-main">
+
+    <div class="modal-thumb">
+      <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
+      <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
+      <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
+      <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
+    </div>
+
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+    <h3 id="modalPrice"></h3>
+
+    <button onclick="addToCart(
+  document.getElementById('modalTitle').innerText,
+  parseInt(document.getElementById('modalPrice').innerText.replace(/\D/g,'')),
+  document.getElementById('modalMainImg').src
+)">
+  + Tambah Keranjang
+</button>
+
+  </div>
+</div>
+
+<!-- CART PAGE -->
+<div id="cart" class="page">
+
+  <div class="hero">
+    <h2>Keranjang Belanja</h2>
+    <p class="gold-text">Pesanan yang sudah kamu pilih</p>
+  </div>
+
+  <div class="cart-box" id="cartItems">
+    <div class="empty-cart">Keranjang masih kosong</div>
+  </div>
+
+<div class="cart-total" style="flex-direction:column;align-items:stretch;gap:10px;">
+
+  <!-- layanan -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    border-bottom:1px solid #e5e7eb;
+    padding-bottom:8px;
+  ">
+    <span>Layanan Dipilih</span>
+    <b id="cartLayanan">-</b>
+  </div>
+
+  <!-- ongkir -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+  ">
+    <span>Ongkir</span>
+    <b id="cartOngkir">Rp 0</b>
+  </div>
+
+  <!-- total -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:16px;
+    border-top:1px solid #e5e7eb;
+    padding-top:8px;
+  ">
+    <span>Total</span>
+    <b id="cartTotal">Rp 0</b>
+  </div>
+
+</div>
+
+
+  <button onclick="checkoutCart()">Checkout</button>
+
+</div>
+
+
+
+</body>
+</html>
