@@ -429,15 +429,26 @@ Konfirmasi Pembayaran
 </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<script>
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyD08oiKC8_88tZPLt7N-GwFPPwRVkMFtyE",
+  authDomain: "batakessence.firebaseapp.com",
+  projectId: "batakessence",
+  storageBucket: "batakessence.firebasestorage.app",
+  messagingSenderId: "339150969547",
+  appId: "1:339150969547:web:4fcdb21465329aced7994e",
+  measurementId: "G-B2MJMZF9WV"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+window.db = db;
+window.addDoc = addDoc;
+window.collection = collection;
 </script>
 
 </body>
