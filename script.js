@@ -415,78 +415,75 @@ document.getElementById("boxBank").style.display = "block";
 
 }
 
-function konfirmasiPembayaran(){
+async function konfirmasiPembayaran(){
 
-if(cart.length===0){
-alert("Keranjang kosong");
-return;
-}
+  if(cart.length===0){
+    alert("Keranjang kosong");
+    return;
+  }
 
-let now = new Date();
+  let now = new Date();
 
-let hariArr = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  let waktu =
+  String(now.getHours()).padStart(2,"0") + ":" +
+  String(now.getMinutes()).padStart(2,"0");
 
-let hari = hariArr[now.getDay()];
+  let produk = cart.map(item =>
+  item.name + " x" + item.qty
+  ).join("<br>");
 
-let tanggal =
-String(now.getDate()).padStart(2,"0") + "/" +
-String(now.getMonth()+1).padStart(2,"0") + "/" +
-now.getFullYear();
+  let tbody = document.getElementById("adminTableBody");
+  let no = tbody.rows.length + 1;
 
-let waktu =
-String(now.getHours()).padStart(2,"0") + ":" +
-String(now.getMinutes()).padStart(2,"0");
+  // ✅ SIMPAN KE FIREBASE
+  let dataOrder = {
+    nama: namaUser,
+    layanan: layanan,
+    produk: cart,
+    waktu: new Date().toISOString(),
+    status: "Diproses"
+  };
 
-let produk = cart.map(item =>
-item.name + " x" + item.qty
-).join("<br>");
+  await addDoc(collection(db, "orders"), dataOrder);
 
-let tbody = document.getElementById("adminTableBody");
+  // ✅ MASUKKAN KE TABLE ADMIN (LOKAL)
+  tbody.innerHTML += `
+  <tr>
+  <td>${no}</td>
+  <td>
+    <span class="layanan-badge ${layanan.replace(' ','-')}">
+      ${layanan}
+    </span>
+  </td>
+  <td>${waktu}</td>
+  <td>${idPelanggan}</td>
+  <td>${namaUser}</td>
+  <td>${produk}</td>
+  <td>
+  <select onchange="updateStatus(this)">
+    <option value="Diproses">Diproses</option>
+    <option value="Selesai">Selesai</option>
+  </select>
+  </td>
+  </tr>
+  `;
 
-let no = tbody.rows.length + 1;
+  let lastSelect = tbody.querySelector("tr:last-child select");
+  lastSelect.style.background = "#fef3c7";
+  lastSelect.style.color = "#92400e";
 
+  sortAdminTable();
+  updateAdminSummary();
 
-tbody.innerHTML += `
-<tr>
-<td>${no}</td>
-<td>
-  <span class="layanan-badge ${layanan.replace(' ','-')}">
-    ${layanan}
-  </span>
-</td>
-<td>${waktu}</td>
-<td>${idPelanggan}</td>
-<td>${namaUser}</td>
-<td>${produk}</td>
-<td>
-<select onchange="updateStatus(this)">
-  <option value="Diproses">Diproses</option>
-  <option value="Selesai">Selesai</option>
-</select>
-</td>
-</tr>
-`;
+  alert("Pesanan masuk + tersimpan ke Firebase");
 
-// styling row terakhir (BARU TAMBAH INI)
-let lastSelect = tbody.querySelector("tr:last-child select");
-lastSelect.style.background = "#fef3c7";
-lastSelect.style.color = "#92400e";
+  cart = [];
+  count = 0;
 
+  document.getElementById("count").innerText="0";
 
-sortAdminTable();
-updateAdminSummary();
-
-alert("Pesanan masuk ke dashboard admin");
-
-cart = [];
-count = 0;
-
-document.getElementById("count").innerText="0";
-
-renderCart();
-
-openPage("home");
-
+  renderCart();
+  openPage("home");
 }
 
 
@@ -548,3 +545,6 @@ function updateAdminSummary(){
   document.getElementById("orderProses").innerText = proses;
   document.getElementById("orderSelesai").innerText = selesai;
 }
+
+
+
