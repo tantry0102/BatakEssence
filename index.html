@@ -6,115 +6,181 @@
 <title>Batak Essence - Cafe & Resto</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div id="app"></div>
+
 <script src="script.js"></script>
+
+
+
 
 <!-- SPLASH -->
 <div id="splash">
-  <img src="BatakEssence1.png">
-  <h1 id="welcomeText">Batak Essence</h1>
-  <p>Cafe & Resto</p>
-  <div class="meja" id="kodePelanggan">No Pelanggan : -</div>
-  <div class="opsi">
-    <div class="opsi-box" onclick="pilihLayanan(this,'Dine In')">🍽️ Dine In</div>
-    <div class="opsi-box" onclick="pilihLayanan(this,'Take Away')">🥡 Take Away</div>
-    <div class="opsi-box" onclick="pilihLayanan(this,'Delivery')">🛵 Delivery</div>
-  </div>
-  <div class="login-box">
-    <input type="text" id="userName" placeholder="Pilih layanan dulu..." readonly onclick="cekLayanan()">
-    <button onclick="startApp()">Masuk ke Batak Essence</button>
-  </div>
+<img src="BatakEssence1.png">
+<h1 id="welcomeText">Batak Essence</h1>
+<p>Cafe & Resto</p>
+
+<div class="meja" id="kodePelanggan">No Pelanggan : -</div>
+
+<div class="opsi">
+<div class="opsi-box" onclick="pilihLayanan(this,'Dine In')">🍽️ Dine In</div>
+<div class="opsi-box" onclick="pilihLayanan(this,'Take Away')">🥡 Take Away</div>
+<div class="opsi-box" onclick="pilihLayanan(this,'Delivery')">🛵 Delivery</div>
+</div>
+
+<div class="login-box">
+<input type="text" id="userName" placeholder="Pilih layanan dulu..." readonly onclick="cekLayanan()">
+<button onclick="startApp()">Masuk ke Batak Essence</button>
+</div>
 </div>
 
 <!-- HEADER -->
 <header>
-  <img src="BatakEssence1.png" class="logo">
-  <div class="brand">
-    <h3>Batak Essence</h3>
-    <p>Cafe & Resto</p>
-  </div>
-  <div class="search-wrap">
-    <input class="search" id="searchInput" placeholder="Cari menu..." onkeyup="searchProduk()">
-    <div class="icon">🔎</div>
-  </div>
-  <div class="cart" onclick="openPage('cart')">
-    🛒 <span class="badge" id="count">0</span>
-  </div>
+<img src="BatakEssence1.png" class="logo">
+
+<div class="brand">
+<h3>Batak Essence</h3>
+<p>Cafe & Resto</p>
+</div>
+
+<div class="search-wrap">
+<input class="search" id="searchInput" placeholder="Cari menu..." onkeyup="searchProduk()">
+<div class="icon">🔎</div>
+</div>
+
+<div class="cart" onclick="openPage('cart')">
+🛒 <span class="badge" id="count">0</span>
+</div>
 </header>
 
 <!-- HOME -->
 <div id="home" class="page">
-  <div class="hero">
-    <h2 id="helloUser">Horas!</h2>
-    <p class="gold-text">Nikmati cita rasa khas Batak yang autentik hanya di sini.</p>
+
+<div class="hero">
+<h2 id="helloUser">Horas!</h2>
+<p class="gold-text">Nikmati cita rasa khas Batak yang autentik hanya di sini.</p>
+</div>
+
+<div class="layanan-info">
+  
+  <div class="layanan-left">
+    Layanan Dipilih : <span id="layananShow">-</span>
   </div>
-  <div class="layanan-info">
-    <div class="layanan-left">
-      Layanan Dipilih : <span id="layananShow">-</span>
-    </div>
-    <button class="ubah-btn" onclick="ubahLayanan()">
-      Ubah
-    </button>
-  </div>
-  <div class="cat-wrap">
-    <div class="cat" onclick="filterCat('all',this)">🍽️ Semua</div>
-    <div class="cat" onclick="filterCat('makanan',this)">🍖 Makanan</div>
-    <div class="cat" onclick="filterCat('minuman',this)">🥤 Minuman</div>
-    <div class="cat" onclick="filterCat('snack',this)">🍰 Snack</div>
-  </div>
-  <!-- PRODUCT LIST -->
-  <div class="grid">
-    <div class="card" data-cat="makanan" onclick="openProduct(
-      'Babi Panggang',
-      45000,
-      'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
-      'https://picsum.photos/300?10'
-    )">
-      <img src="https://picsum.photos/300?1">
-      <div class="info">
-        <div class="name">Babi Panggang</div>
-        <div class="price">45K</div>
-      </div>
-    </div>    
-    <div class="card" data-cat="makanan" onclick="openProduct(
-      'Mie Gomak',
-      32000,
-      'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
-      'https://picsum.photos/300?2'
-    )">
-      <img src="https://picsum.photos/300?2">
-      <div class="info">
-        <div class="name">Mie Gomak</div>
-        <div class="price">32K</div>
-      </div>
-    </div>
-    <div class="card" data-cat="makanan" onclick="openProduct(
-      'Saksang',
-      52000,
-      'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
-      'https://picsum.photos/300?3'
-    )">
-      <img src="https://picsum.photos/300?3">
-      <div class="info">
-        <div class="name">Saksang</div>
-        <div class="price">52K</div>
-      </div>
-    </div>
-    <div class="card" data-cat="minuman" onclick="openProduct(
-      'Kopi Sidikalang',
-      22000,
-      'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
-      'https://picsum.photos/300?4'
-    )">
-      <img src="https://picsum.photos/300?4">
-      <div class="info">
-        <div class="name">Kopi Sidikalang</div>
-        <div class="price">22K</div>
-      </div>
-    </div>
-  </div>
+
+  <button class="ubah-btn" onclick="ubahLayanan()">
+    Ubah
+  </button>
+
+</div>
+
+<div class="cat-wrap">
+<div class="cat" onclick="filterCat('all',this)">🍽️ Semua</div>
+<div class="cat" onclick="filterCat('makanan',this)">🍖 Makanan</div>
+<div class="cat" onclick="filterCat('minuman',this)">🥤 Minuman</div>
+<div class="cat" onclick="filterCat('snack',this)">🍰 Snack</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Babi Panggang',
+  45000,
+  'Babi panggang khas Batak dengan bumbu rempah autentik dan cita rasa smoky.',
+  ['babipanggang1.jpg','babipanggang2.jpg']
+)">
+<img src="babipanggang1.jpg">
+<div class="info">
+<div class="name">Babi Panggang</div>
+<div class="price">45K</div>
+</div>
+</div>
+
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Mie Gomak',
+  32000,
+  'Mie Gomak dengan bumbu rempah autentik dan cita rasa toba.',
+  ['miegomak1.jpg','miegomak2.jpg']
+)">
+<img src="miegomak1.jpg">
+<div class="info">
+<div class="name">Mie Gomak</div>
+<div class="price">32K</div>
+</div>
+</div>
+
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Saksang',
+  52000,
+  'Saksang dengan bumbu rempah autentik dan cita rasa toba.',
+  ['saksang1.jpg','saksang2.jpg']
+)">
+<img src="saksang1.jpg">
+<div class="info">
+<div class="name">Saksang</div>
+<div class="price">52K</div>
+</div>
+</div>
+
+<div class="card" data-cat="minuman" onclick="openProduct(
+  'Kopi Sidikalang',
+  22000,
+  'Kopi Sidikalang dengan cita rasa autentik.',
+  ['kopisidikalang1.jpg','kopisidikalang2.jpg']
+)">
+<img src="kopisidikalang1.jpg">
+<div class="info">
+<div class="name">Kopi Sidikalang</div>
+<div class="price">22K</div>
+</div>
+</div>
+
+<div class="card" data-cat="minuman" onclick="openProduct(
+  'Badak',
+  15000,
+  'Badak khas Toba.',
+  ['badak1.jpg','badak2.jpg']
+)">
+<img src="badak1.jpg">
+<div class="info">
+<div class="name">Badak</div>
+<div class="price">15K</div>
+</div>
+</div>
+
+<div class="card" data-cat="snack" onclick="openProduct(
+  'Lapet',
+  5000,
+  'Lapet khas Toba.',
+  ['lapet1.jpg','lapet2.jpg']
+)">
+<img src="lapet1.jpg">
+<div class="info">
+<div class="name">Lapet</div>
+<div class="price">5K</div>
+</div>
+</div>
+
+<div class="card" data-cat="makanan" onclick="openProduct(
+  'Arsik',
+  30000,
+  'Ikan Mas khas Toba.',
+  ['arsik1.jpg','arsik2.jpg']
+)">
+<img src="arsik1.jpg">
+<div class="info">
+<div class="name">Arsik</div>
+<div class="price">30K</div>
+</div>
+</div>
+
+
+
+</div>
 </div>
 
 <nav>
@@ -122,91 +188,247 @@
     <span>🏠</span>
     <p>Home</p>
   </div>
+
   <div class="nav-item" onclick="setNav(this);openPage('cart')">
     <span>🛒</span>
     <p>Cart</p>
   </div>
-  <div class="nav-item">
-    <span>💳</span>
-    <p>Bayar</p>
+
+  <div class="nav-item" id="navBayar" onclick="setNav(this);openPage('bayar')">
+  <span>💳</span>
+  <p>Bayar</p>
   </div>
-  <div class="nav-item">
-    <span>👤</span>
-    <p>Profil</p>
-  </div>
+
+  <div class="nav-item" id="navAdmin" style="display:none;"
+onclick="setNav(this);openPage('admin')">
+  <span>👤</span>
+  <p>Admin</p>
+</div>
 </nav>
+
 
 <!-- PRODUCT MODAL -->
 <div id="productModal" class="modal">
   <div class="modal-content">
+
     <span class="close" onclick="closeModal()">×</span>
+
     <img id="modalMainImg" class="modal-main">
+
     <div class="modal-thumb">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
       <img src="https://picsum.photos/300?1" onclick="changeImg(this.src)">
     </div>
+
     <h2 id="modalTitle"></h2>
     <p id="modalDesc"></p>
     <h3 id="modalPrice"></h3>
+
     <button onclick="addToCart(
-      document.getElementById('modalTitle').innerText,
-      parseInt(document.getElementById('modalPrice').innerText.replace(/\D/g,'')),
-      document.getElementById('modalMainImg').src
-    )">
-      + Tambah Keranjang
-    </button>
+  document.getElementById('modalTitle').innerText,
+  parseInt(document.getElementById('modalPrice').innerText.replace(/\D/g,'')),
+  document.getElementById('modalMainImg').src
+)">
+  + Tambah Keranjang
+</button>
+
   </div>
 </div>
 
 <!-- CART PAGE -->
 <div id="cart" class="page">
+
   <div class="hero">
     <h2>Keranjang Belanja</h2>
     <p class="gold-text">Pesanan yang sudah kamu pilih</p>
   </div>
+
   <div class="cart-box" id="cartItems">
     <div class="empty-cart">Keranjang masih kosong</div>
   </div>
-  <div class="cart-total" style="flex-direction:column;align-items:stretch;gap:10px;">
-    <!-- layanan -->
-    <div style="
-     display:flex;
-     justify-content:space-between;
-     align-items:center;
-     font-size:14px;
-     border-bottom:1px solid #e5e7eb;
-     padding-bottom:8px;
-    ">
-     <span>Layanan Dipilih</span>
-     <b id="cartLayanan">-</b>
-    </div>
-    <!-- ongkir -->
-    <div style="
-     display:flex;
-     justify-content:space-between;
-     align-items:center;
-     font-size:14px;
-    ">
-     <span>Ongkir</span>
-     <b id="cartOngkir">Rp 0</b>
-    </div>
-    <!-- total -->
-    <div style="
-     display:flex;
-     justify-content:space-between;
-     align-items:center;
-     font-size:16px;
-     border-top:1px solid #e5e7eb;
-     padding-top:8px;
-    ">
-     <span>Total</span>
-     <b id="cartTotal">Rp 0</b>
-    </div>
+
+<div class="cart-total" style="flex-direction:column;align-items:stretch;gap:10px;">
+
+  <!-- layanan -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    border-bottom:1px solid #e5e7eb;
+    padding-bottom:8px;
+  ">
+    <span>Layanan Dipilih</span>
+    <b id="cartLayanan">-</b>
   </div>
-  <button onclick="checkoutCart()">Checkout</button>
+
+  <!-- ongkir -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+  ">
+    <span>Ongkir</span>
+    <b id="cartOngkir">Rp 0</b>
+  </div>
+
+  <!-- total -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:16px;
+    border-top:1px solid #e5e7eb;
+    padding-top:8px;
+  ">
+    <span>Total</span>
+    <b id="cartTotal">Rp 0</b>
+  </div>
+
 </div>
+
+
+  <button onclick="goToBayar()">Checkout</button>
+
+</div>
+
+<!-- HALAMAN BAYAR -->
+<div id="bayar" class="page">
+
+  <div class="hero">
+    <h2>Pembayaran</h2>
+    <p class="gold-text">Selesaikan pembayaran pesanan kamu</p>
+  </div>
+
+  <div class="box" style="margin-top:12px;">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:14px;
+      font-size:16px;
+      font-weight:bold;
+      color:#ffffff;
+    ">
+      <span>Total Pembayaran :</span>
+      <span id="totalBayarPage">Rp 0</span>
+    </div>
+
+    <h3 style="margin-bottom:10px; color:#ffffff;">
+  	Pilih Metode
+    </h3>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+      <div class="pay-card active" onclick="pilihBayar(this,'qris')">
+        📱 QRIS
+      </div>
+
+      <div class="pay-card" onclick="pilihBayar(this,'bank')">
+        🏦 Bank
+      </div>
+
+    </div>
+
+    <!-- QRIS -->
+    <div id="boxQris" style="margin-top:14px;">
+      <img src="qris.png" style="
+        width:300px;
+        display:block;
+        margin:auto;
+        border-radius:12px;
+      ">
+    </div>
+
+    <!-- BANK -->
+    <div id="boxBank" style="display:none; margin-top:14px;">
+      <img src="bank.png" style="
+        width:250px;
+        display:block;
+        margin:auto;
+        border-radius:12px;
+      ">
+    </div>
+
+    <!-- Upload -->
+    <div class="pay-action-fixed">
+
+<label class="pay-upload">
+Upload Bukti Pembayaran
+<input type="file" hidden>
+</label>
+
+<button class="pay-confirm"
+onclick="konfirmasiPembayaran()">
+Konfirmasi Pembayaran
+</button>
+
+</div>
+
+
+
+  </div>
+
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="admin" class="page">
+
+<div class="hero">
+<h2>Dashboard Admin</h2>
+<p class="gold-text">Monitoring Order Customer</p>
+</div>
+
+<!-- SUMMARY -->
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;">
+
+  <div style="background:#fff;padding:12px;border-radius:14px;text-align:center;">
+    <h3 id="totalOrder">0</h3>
+    <p>Total Order</p>
+  </div>
+
+  <div style="background:#fef3c7;padding:12px;border-radius:14px;text-align:center;">
+    <h3 id="orderProses">0</h3>
+    <p>Diproses</p>
+  </div>
+
+  <div style="background:#dcfce7;padding:12px;border-radius:14px;text-align:center;">
+    <h3 id="orderSelesai">0</h3>
+    <p>Selesai</p>
+  </div>
+
+</div>
+
+<div class="admin-wrap">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+  <h3 style="font-size:18px;color:#111827;">Order List</h3>
+
+  <div id="tanggalAdmin" style="font-size:20px;font-weight:900;color:blue;"></div>
+</div>
+
+<table class="admin-table">
+<thead>
+<tr>
+<th>No</th>
+<th>Layanan</th>
+<th>Waktu</th>
+<th>ID Pelanggan</th>
+<th>Nama</th>
+<th>Produk</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="adminTableBody"></tbody>
+</table>
+
+</div>
+</div>
+
 
 </body>
 </html>
