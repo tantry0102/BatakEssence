@@ -93,7 +93,7 @@ window.onload=function(){
 }
 
 // FILTER
-function filterCat(cat, el){
+window.filterCat = function(cat, el){
   // active style reset
   document.querySelectorAll(".cat").forEach(c=>{
     c.style.background="#fff";
@@ -115,7 +115,7 @@ function filterCat(cat, el){
 }
 
 // DETAIL PRODUCT
-function openProduct(title, price, desc, images){
+window.openProduct = function(title, price, desc, images){
   document.getElementById("productModal").style.display="flex";
   document.getElementById("modalTitle").innerText = title;
   document.getElementById("modalPrice").innerText = "Rp " + price.toLocaleString();
@@ -130,11 +130,11 @@ function openProduct(title, price, desc, images){
   });
 }
 
-function closeModal(){
+window.closeModal = function(){
   document.getElementById("productModal").style.display="none";
 }
 
-function changeImg(src){
+window.changeImg = function(src){
   document.getElementById("modalMainImg").src = src;
 }
 
@@ -143,7 +143,7 @@ let cart = [];
 let total = 0;
 let count = 0;
 
-function addToCart(name, price, img){
+window.addToCart = function(name, price, img){
   let existing = cart.find(item => item.name === name);
   if(existing){
     existing.qty += 1;
@@ -167,13 +167,13 @@ function showCart(){
   console.log(cart);
 }
 
-function setNav(el){
+window.setNav = function(el){
   document.querySelectorAll('.nav-item').forEach(item=>item.classList.remove('active'));
   el.classList.add('active');
 }
 
 // SEARCH PRODUCT
-function searchProduk(){
+window.searchProduk = function(){
   let keyword = document.getElementById("searchInput").value.toLowerCase();
   let cards = document.querySelectorAll(".card");
   cards.forEach(card=>{
@@ -224,7 +224,7 @@ function hitungOngkir(subtotal){
   return Math.ceil(subtotal / 200000) * 30000;
 }
 
-function renderCart(){
+window.renderCart = function(){
   let wrap = document.getElementById("cartItems");
   if(cart.length === 0){
     wrap.innerHTML = `<div class="empty-cart">Keranjang masih kosong</div>`;
@@ -268,7 +268,7 @@ function renderCart(){
   document.getElementById("cartOngkir").innerText = "Rp " + ongkir.toLocaleString();
 }
 
-function tambahQty(index){
+window.tambahQty = function(index){
   cart[index].qty++;
   count++;
   document.getElementById("count").innerText = count;
@@ -276,7 +276,7 @@ function tambahQty(index){
   updateTotalBayar();
 }
 
-function kurangQty(index){
+window.kurangQty = function(index){
   cart[index].qty--;
   if(count > 0) count--;
   if(cart[index].qty <= 0){
@@ -290,7 +290,7 @@ function kurangQty(index){
   updateTotalBayar();
 }
 
-function hapusItem(index){
+window.hapusItem = function(index){
   count -= cart[index].qty;
   if(count < 0){
     count = 0;
@@ -317,7 +317,7 @@ function checkoutCart(){
   openPage("home");
 }
 
-function goToBayar(){
+window.goToBayar = function(){
   if(cart.length === 0){
     alert("Keranjang masih kosong");
     return;
@@ -337,7 +337,7 @@ function goToBayar(){
   document.getElementById("navBayar").classList.add("active");
 }
 
-function pilihBayar(el,metode){
+window.pilihBayar = function(el,metode){
   // reset semua tombol
   document.querySelectorAll('.pay-card').forEach(card=>{
     card.classList.remove('active');
@@ -489,7 +489,7 @@ function sortAdminTable(){
   updateAdminSummary();
 }
 
-function updateStatus(el){
+window.updateStatus = function(el){
   if(el.value === "Selesai"){
     el.style.background = "#dcfce7";
     el.style.color = "#166534";
@@ -501,7 +501,7 @@ function updateStatus(el){
   updateAdminSummary();
 }
 
-function updateAdminSummary(){
+window.updateAdminSummary = function(){
   let rows = document.querySelectorAll("#adminTableBody tr");
   let total = rows.length;
   let proses = 0;
@@ -516,7 +516,7 @@ function updateAdminSummary(){
   document.getElementById("orderSelesai").innerText = selesai;
 }
 
-function showToast(msg){
+window.showToast = function(msg){
   let toast = document.getElementById("toast");
   toast.innerText = msg;
   toast.classList.add("show");
@@ -587,7 +587,7 @@ window.openSuccess = function(){
 
 let orders = [];
 
-function inputQty(index, value){
+window.inputQty = function(index, value){
   let val = parseInt(value);
   if(isNaN(val) || val < 1){
     val = 1;
