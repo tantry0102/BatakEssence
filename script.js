@@ -1,6 +1,6 @@
 // import firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // config
 const firebaseConfig = {
@@ -56,8 +56,9 @@ window.startApp = function(){
   document.querySelector("nav").style.display="flex";
   document.getElementById("home").style.display="block";
   if(nama==="AdminBatakEssence01#"){
-    document.getElementById("navAdmin").style.display="block";
-  }else{
+  document.getElementById("navAdmin").style.display="block";
+  loadOrdersFromFirebase(); // 🔥 ini penting
+}else{
     document.getElementById("navAdmin").style.display="none";
   }
 }
@@ -403,34 +404,7 @@ window.konfirmasiPembayaran = function(){
   document.getElementById("sLayanan").innerText = layanan;
   document.getElementById("sProduk").innerHTML = produkHTML;
   document.getElementById("sTotal").innerText = "Rp " + totalAkhir.toLocaleString();
-  // =======================
-  // MASUKKAN KE ADMIN (kode lama kamu)
-  // =======================
-  let tbody = document.getElementById("adminTableBody");
-  let no = tbody.rows.length + 1;
-  let produkText = cart.map(item =>
-    item.name + " x" + item.qty
-  ).join("<br>");
-  tbody.innerHTML += `
-    <tr>
-      <td>${no}</td>
-      <td><span class="layanan-badge ${layanan.replace(' ','-')}">
-        ${layanan}</span>
-      </td>
-      <td>${waktu}</td>
-      <td>${idPelanggan}</td>
-      <td>${namaUser}</td>
-      <td>${produkText}</td>
-      <td>
-      <select onchange="updateStatus(this)">
-        <option value="Diproses">Diproses</option>
-        <option value="Selesai">Selesai</option>
-      </select>
-      </td>
-    </tr>
-  `;
-  sortAdminTable();
-  updateAdminSummary();
+
 // =======================
 // SIMPAN KE FIREBASE
 // =======================
@@ -452,14 +426,7 @@ addDoc(collection(db, "orders"), {
   // =======================
   // RESET CART
   // =======================
-  orders.push({
-    nama: namaUser,
-    id: idPelanggan,
-    waktu: waktu,
-    layanan: layanan,
-    produk: JSON.parse(JSON.stringify(cart)),
-    total: totalAkhir
-  });
+
   cart = [];
   count = 0;
   document.getElementById("count").innerText="0";
@@ -493,15 +460,23 @@ function sortAdminTable(){
   updateAdminSummary();
 }
 
-window.updateStatus = function(el){
-  if(el.value === "Selesai"){
+window.updateStatus = async function(el, id){
+  let statusBaru = el.value;
+
+  // update ke Firebase
+  await updateDoc(doc(db, "orders", id), {
+    status: statusBaru
+  });
+
+  // styling UI
+  if(statusBaru === "Selesai"){
     el.style.background = "#dcfce7";
     el.style.color = "#166534";
   }else{
     el.style.background = "#fef3c7";
     el.style.color = "#92400e";
   }
-  sortAdminTable();
+
   updateAdminSummary();
 }
 
@@ -624,3 +599,51 @@ function updateTotalBayar(){
   }
 }
 
+function loadOrdersFromFirebase(){
+  const tbody = document.getElementById("adminTableBody");
+  if(!tbody) return;
+
+  onSnapshot(collection(db, "orders"), (snapshot) => {
+    tbody.innerHTML = ""; 
+    orders = []; // 🔥 TAMBAHAN PENTING
+
+    let no = 1;
+
+    snapshot.forEach(docSnap => {
+      let data = docSnap.data();
+
+      // 🔥 SIMPAN KE ARRAY GLOBAL
+      orders.push({
+        idDoc: docSnap.id,
+        ...data
+      });
+
+      let produkText = (data.produk || []).map(item =>
+        item.name + " x" + item.qty
+      ).join("<br>");
+
+      tbody.innerHTML += `
+        <tr>
+          <td>${no++}</td>
+          <td>
+            <span class="layanan-badge ${data.layanan.toLowerCase().replace(/\s+/g,'-')}">
+              ${data.layanan}
+            </span>
+          </td>
+          <td>${new Date(data.waktu).toLocaleTimeString()}</td>
+          <td>${data.id}</td>
+          <td>${data.nama}</td>
+          <td>${produkText}</td>
+          <td>
+            <select onchange="updateStatus(this, '${docSnap.id}')">
+              <option ${data.status==="Diproses"?"selected":""}>Diproses</option>
+              <option ${data.status==="Selesai"?"selected":""}>Selesai</option>
+            </select>
+          </td>
+        </tr>
+      `;
+    });
+
+    updateAdminSummary();
+  });
+}
