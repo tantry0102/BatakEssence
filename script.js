@@ -1,3 +1,23 @@
+// import firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// config kamu
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD08oiKC8_88tZPLt7N-GwFPPwRVkMFtyE",
+  authDomain: "batakessence.firebaseapp.com",
+  projectId: "batakessence",
+  storageBucket: "batakessence.firebasestorage.app",
+  messagingSenderId: "339150969547",
+  appId: "1:339150969547:web:4fcdb21465329aced7994e",
+  measurementId: "G-B2MJMZF9WV"
+};
+
+// init
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 let layanan="";
 let namaUser="";
 let idPelanggan="";
@@ -412,7 +432,22 @@ function konfirmasiPembayaran(){
   `;
   sortAdminTable();
   updateAdminSummary();
-  // =======================
+  
+// =======================
+// SIMPAN KE FIREBASE
+// =======================
+let dataOrder = ambilDataOrder();
+
+addDoc(collection(db, "orders"), dataOrder)
+  .then(() => {
+    console.log("Order masuk Firebase ✅");
+  })
+  .catch(err => {
+    console.error("Gagal simpan ❌", err);
+  });
+
+
+// =======================
   // RESET CART
   // =======================
   orders.push({
@@ -587,3 +622,39 @@ function updateTotalBayar(){
   }
 }
 
+window.simpanOrder = async function(dataOrder) {
+  try {
+    await addDoc(collection(db, "orders"), dataOrder);
+    console.log("Order berhasil disimpan ✅");
+  } catch (err) {
+    console.error("Gagal simpan ❌", err);
+  }
+};
+
+function ambilDataOrder() {
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+  });
+
+  let ongkir = 0;
+  if(layanan === "Delivery"){
+    ongkir = hitungOngkir(total);
+  }
+
+  return {
+    nama: namaUser,
+    id: idPelanggan,
+    layanan: layanan,
+    produk: cart,
+    ongkir: ongkir,
+    total: total + ongkir,
+    waktu: new Date().toISOString(),
+    status: "Diproses"
+  };
+}
+
+window.db = db;
+window.addDoc = addDoc;
+window.collection = collection;
