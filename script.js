@@ -463,12 +463,11 @@ function sortAdminTable(){
 window.updateStatus = async function(el, id){
   let statusBaru = el.value;
 
-  // update ke Firebase
   await updateDoc(doc(db, "orders", id), {
     status: statusBaru
   });
 
-  // styling UI
+  // UI update langsung
   if(statusBaru === "Selesai"){
     el.style.background = "#dcfce7";
     el.style.color = "#166534";
@@ -605,18 +604,11 @@ function loadOrdersFromFirebase(){
 
   onSnapshot(collection(db, "orders"), (snapshot) => {
     tbody.innerHTML = ""; 
-    orders = []; // 🔥 TAMBAHAN PENTING
 
     let no = 1;
 
     snapshot.forEach(docSnap => {
       let data = docSnap.data();
-
-      // 🔥 SIMPAN KE ARRAY GLOBAL
-      orders.push({
-        idDoc: docSnap.id,
-        ...data
-      });
 
       let produkText = (data.produk || []).map(item =>
         item.name + " x" + item.qty
