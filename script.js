@@ -17,7 +17,7 @@ let layanan="";
 let namaUser="";
 let idPelanggan="";
 
-function pilihLayanan(el,nama){
+window.pilihLayanan = function(el,nama){
   document.querySelectorAll('.opsi-box').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
   layanan=nama;
@@ -27,13 +27,13 @@ function pilihLayanan(el,nama){
   input.focus();
 }
 
-function cekLayanan(){
+window.cekLayanan = function(){
   if(layanan==""){
     alert("Silakan pilih layanan terlebih dahulu");
   }
 }
 
-function startApp(){
+window.startApp = function(){
   if(layanan==""){
     alert("Pilih layanan dulu");
     return;
@@ -58,7 +58,7 @@ function startApp(){
   }
 }
 
-function ubahLayanan(){
+window.ubahLayanan = function(){
   document.getElementById("splash").style.display="flex";
   document.querySelector("header").style.display="none";
   document.querySelector("nav").style.display="none";
@@ -187,7 +187,7 @@ function searchProduk(){
 }
 
 // CART
-function openPage(page){
+window.openPage = function(page){
   document.querySelectorAll('.page').forEach(p=>{
     p.style.display='none';
     p.classList.remove("active");
@@ -354,7 +354,7 @@ function pilihBayar(el,metode){
   }
 }
 
-function konfirmasiPembayaran(){
+window.konfirmasiPembayaran = function(){
   if(cart.length===0){
     alert("Keranjang kosong");
     return;
@@ -525,7 +525,7 @@ function showToast(msg){
   }, 2000); // 2 detik hilang sendiri
 }
 
-function openSuccess(){
+window.openSuccess = function(){
   if(orders.length === 0){
     alert("Belum ada pesanan");
     return;
