@@ -4,9 +4,13 @@ import { getFirestore, collection, addDoc } from "https://www.gstatic.com/fireba
 
 // config
 const firebaseConfig = {
-  apiKey: "API_KEY_KAMU",
-  authDomain: "PROJECT_ID.firebaseapp.com",
-  projectId: "PROJECT_ID",
+  apiKey: "AIzaSyD08oiKC8_88tZPLt7N-GwFPPwRVkMFtyE",
+  authDomain: "batakessence.firebaseapp.com",
+  projectId: "batakessence",
+  storageBucket: "batakessence.firebasestorage.app",
+  messagingSenderId: "339150969547",
+  appId: "1:339150969547:web:4fcdb21465329aced7994e",
+  measurementId: "G-B2MJMZF9WV"
 };
 
 // init
